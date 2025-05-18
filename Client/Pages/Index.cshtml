@@ -1,0 +1,31 @@
+﻿@page
+@model IndexModel
+@{
+    ViewData["Title"] = "Home page";
+}
+
+<div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
+    <ul class="navbar-nav flex-grow-1">
+        <!-- Your existing navigation items -->
+        @if (User.Identity.IsAuthenticated)
+        {
+            <li class="nav-item">
+                <span class="nav-link text-dark">Hello, @User.Identity.Name!</span>
+            </li>
+            <form method="post" asp-page="/Account/Logout">
+                <button type="submit">Logout</button>
+            </form>
+        }
+        else
+        {
+            <li class="nav-item">
+                <a asp-page="/Account/Login">Login</a>
+            </li>
+        }
+    </ul>
+</div>
+
+<div class="text-center">
+    <h1 class="display-4">Welcome to client</h1>
+    <p>Learn about <a href="https://learn.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+</div>
