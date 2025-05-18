@@ -5,16 +5,19 @@ using System.ComponentModel.DataAnnotations;
 using System.Security.Claims;
 using Duende.IdentityModel.Client;
 using System.Threading.Tasks;
+using Microsoft.Extensions.Configuration;
 
 namespace Client.Pages
 {
     public class MyloginModel : PageModel
     {
         private readonly IHttpClientFactory _httpClientFactory;
+        private readonly IConfiguration _configuration;
 
-        public MyloginModel(IHttpClientFactory httpClientFactory)
+        public MyloginModel(IHttpClientFactory httpClientFactory, IConfiguration configuration)
         {
             _httpClientFactory = httpClientFactory;
+            _configuration = configuration;
         }
 
         [BindProperty]
@@ -62,9 +65,9 @@ namespace Client.Pages
             {
                 Address = disco.TokenEndpoint,
                 ClientId = "interactive.client",
-                ClientSecret = "secret",
+                ClientSecret = _configuration["IdentityServer:Secret"],
                 Scope = "api1 openid profile email",
-                UserName = Input.Username,
+                UserName = Input.Username ?? "",
                 Password = Input.Password
             });
 

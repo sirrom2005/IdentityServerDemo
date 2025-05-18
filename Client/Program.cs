@@ -19,7 +19,7 @@ builder.Services.AddAuthentication(options => {
 .AddOpenIdConnect(OpenIdConnectDefaults.AuthenticationScheme, options => {
     options.Authority = "https://localhost:7295"; // Your IdentityServer URL
     options.ClientId = "id.server";
-    options.ClientSecret = "secret"; 
+    options.ClientSecret = builder.Configuration["IdentityServer:Secret"]; 
     options.ResponseType = OpenIdConnectResponseType.Code;
     options.SaveTokens = true;
     options.Scope.Clear(); // Clear default scopes

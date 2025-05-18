@@ -7,7 +7,7 @@ namespace IdentityServerDemo
 {
     public static class Config
     {
-        public static IEnumerable<Client> Clients =>
+        public static IEnumerable<Client> Clients(IConfiguration configuration) =>
             new Client[]
             {
                 new Client
@@ -16,14 +16,14 @@ namespace IdentityServerDemo
                     AllowedGrantTypes = GrantTypes.ClientCredentials,
                     ClientSecrets =
                     {
-                        new Secret("secret".Sha256())
+                        new Secret(configuration["IdentityServer:Secret"].Sha256())
                     },
                     AllowedScopes = { "api1" }
                 },
                  new Client
                 {
                     ClientId = "id.server",
-                    ClientSecrets = { new Secret("secret".Sha256()) },
+                    ClientSecrets = { new Secret(configuration["IdentityServer:Secret"].Sha256()) },
                     AllowedGrantTypes = GrantTypes.Code,
                     RequireConsent = false,
                     RequirePkce = true,
@@ -40,10 +40,9 @@ namespace IdentityServerDemo
                 new Client
                 {
                     ClientId = "interactive.client",
-                    ClientSecrets = { new Secret("secret".Sha256()) },
+                    ClientSecrets = { new Secret(configuration["IdentityServer:Secret"].Sha256()) },
                     AllowedGrantTypes = GrantTypes.ResourceOwnerPassword,
                     RequireConsent = false,
-                    //RequirePkce = true,
                     RedirectUris = { "https://localhost:7274/signin-oidc" },
                     PostLogoutRedirectUris = { "https://localhost:7274/signout-callback-oidc" },
                     AllowedScopes = new List<string>

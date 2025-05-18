@@ -9,7 +9,7 @@ builder.Services.AddControllersWithViews();
 
 // Add Identity Server
 builder.Services.AddIdentityServer()
-    .AddInMemoryClients(Config.Clients)
+    .AddInMemoryClients(Config.Clients(builder.Configuration))
     .AddInMemoryApiScopes(Config.ApiScopes)
     .AddInMemoryIdentityResources(Config.IdentityResources)
     .AddTestUsers(Config.TestUsers)
