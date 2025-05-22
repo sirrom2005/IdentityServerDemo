@@ -78,7 +78,7 @@ namespace IdentityServerDemo
                 Password = "alice",
                 Claims =
                 {
-                    new Claim("name", "Alice"),
+                    new Claim("name", "Alice More"),
                     new Claim("website", "https://alice.com")
                 }
             },
@@ -89,7 +89,7 @@ namespace IdentityServerDemo
                 Password = "bob",
                 Claims =
                 {
-                    new Claim("name", "Bob"),
+                    new Claim("name", "Bob Marley"),
                     new Claim("website", "https://bob.com")
                 }
             }

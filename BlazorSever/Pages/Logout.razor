@@ -1,0 +1,20 @@
+﻿@page "/logout"
+@using Microsoft.AspNetCore.Identity
+@inject NavigationManager NavigationManager
+@inject SignInManager<IdentityUser> SignInManager
+
+@attribute [Authorize] // Ensures only logged-in users can access this page
+
+<PageTitle>Log out</PageTitle>
+
+@{
+    PerformLogoutAsync();
+}
+
+@code {
+    private async Task PerformLogoutAsync()
+    {
+        await SignInManager.SignOutAsync();
+        NavigationManager.NavigateTo("/"); // Redirect to home page after logout
+    }
+}
